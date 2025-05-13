@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #4facfe 0%, #1e3c72 60%);
+
+
+        }
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            color: white;
+            background: linear-gradient(135deg, #2af598, #009efd);
+            padding: 10px 18px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: linear-gradient(135deg, #2af598, #009efd);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+        }
+
+
+        .container{
+            width: 500px;
+            background: #fff;
+            align-items: center;
+            padding: 25px 30px;
+            border-radius:5px ;
+            box-shadow: 0 18px 20px rgba(0, 0, 0, 0.15);
+            align-items: center;
+        }
+
+        .container input,
+        .container select,
+        .container textarea {
+            width: 100%;
+            padding: 10px 14px;
+            margin-top: 6px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            box-sizing: border-box;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            height: 45px; /* set a fixed height */
+        }
+
+
+        .container textarea {
+            height: auto; /* Let it expand naturally */
+            resize: vertical;
+        }
+
+
+
+
+
+
+            button{
+            width:100%;
+            margin-top: 10px;
+            font-size: 16px;
+            background-color: #1e3c72;
+            color:white;
+            border-radius: 6px;
+            padding: 2px 30px;
+            transition: background-color 0.3s ease;
+            height: 40px;
+
+
+        }
+        .logo {  position: absolute;
+            top: 10px;
+            left: 10px;}
+
+    </style>
+
+</head>
+<img src="/europeanLogo.png" class="logo" width="240" height="240">
+
+
+<div class="container">
+    <h1>REGISTER NEW USER</h1>
+    <form th:action="@{/register}" th:object="${user}" method="post" id="UserRegistration">
+        <label>Name:</label><br>
+        <input type="text" th:field="*{name}" id="name" placeholder="Enter your name" required><br><br>
+
+        <label>Surname:</label><br>
+        <input type="text" th:field="*{surname}" id="surname" placeholder="Enter your surname" required><br><br>
+
+        <label>Gender:</label><br>
+        <select th:field="*{gender}" id="gender" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br><br>
+
+        <label>Birthday:</label><br>
+        <input type="date" th:field="*{birthday}" id="birthday" required><br><br>
+
+        <label>Work Address:</label><br>
+        <textarea th:field="*{addresses.workaddress}" id="workaddress" placeholder="City, Address, Number"></textarea><br><br>
+
+        <label>Home Address:</label><br>
+        <textarea th:field="*{addresses.homeaddress}" id="homeaddress" placeholder="City, Address, Number"></textarea><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.getElementById("UserRegistration").addEventListener("submit", function () {
+        // After submission starts, wait for the response and THEN redirect
+        setTimeout(function () {
+            location.href = "/Thanks";
+        }, 500);
+    });
+</script>
+</body>
+</html>

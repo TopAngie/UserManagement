@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #4facfe 0%, #1e3c72 60%);
+            margin: 0;
+            padding: 20px;
+            font-family: sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .user-list {
+            width: 80%;
+            margin: 0 auto;
+            background-color: lightgray;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 0;
+            min-height: 600px;
+            transition: min-height 0.3s ease;
+
+        }
+
+        .user-header,
+        .user-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* equal width */
+            column-gap: 80px;              /* adjustable spacing */
+            padding: 14px 30px;
+            border-bottom: 1px solid #ddd;
+            align-items: center;
+            text-align: left;
+        }
+        .user-header span,
+        .user-item span {
+            text-align: left;
+        }
+
+
+        .user-header {
+            background-color: #1e3c72;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-item:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+        .list-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 20px auto;
+            color: white;
+            font-weight: bold;
+        }
+
+        .list-control p {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #1e3c72;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .list-control p:hover {
+            background-color: #2a5298;
+        }
+    </style>
+</head>
+<body>
+
+<h2>See all the users</h2>
+
+<ul class="user-list">
+    <li class="user-header">
+        <span>Name</span>
+        <span>Surname</span>
+    </li>
+
+    <li class="user-item"
+        th:each="user : ${users}"
+        th:onclick="'window.location.href = \'/details/\' + ' + ${user.id}">
+        <span th:text="${user.name}">Name</span>
+        <span th:text="${user.surname}">Surname</span>
+    </li>
+
+</ul>
+<div class="list-control">
+<p class="pre">Previous</p>
+<p class="next">Next</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const users = $(".user-item");
+        let currentPage = 0;
+        const rowsPerPage = 12;
+
+        users.hide();
+        users.slice(0, rowsPerPage).fadeIn();
+
+        function showPage() {
+            const start = currentPage * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            users.hide();
+            users.slice(start, end-1).fadeIn();
+        }
+
+        $(".next").click(function () {
+            if (currentPage * rowsPerPage < users.length) {
+                currentPage++;
+                showPage();
+            }
+        });
+
+        $(".pre").click(function () {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
