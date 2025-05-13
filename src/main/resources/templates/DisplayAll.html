@@ -129,7 +129,7 @@ width: 600px;
             <strong>Birthday:</strong> <span th:text="${user.birthday}">Birthday</span>
         </div>
         <div>
-            <strong>Work Address:</strong> <span th:text="${user.addresses.workaddress}">Work Address</span>
+            <strong>Work Address:</strong> <span th:text="${user.addresses?.workaddress}">Work Address</span>
         </div>
         <div>
             <strong>Home Address:</strong> <span th:text="${user.addresses?.homeaddress}">Home Address</span>
